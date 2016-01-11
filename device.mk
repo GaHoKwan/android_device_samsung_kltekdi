@@ -30,3 +30,17 @@ PRODUCT_COPY_FILES += \
 
 # common klte
 $(call inherit-product, device/samsung/klte-common/klte.mk)
+ifeq ($(TARGET_PREBUILT_KERNEL),)
+	LOCAL_KERNEL := $(LOCAL_PATH)/kernel
+else
+	LOCAL_KERNEL := $(TARGET_PREBUILT_KERNEL)
+endif
+
+PRODUCT_COPY_FILES += \
+    $(LOCAL_KERNEL):kernel
+
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/recovery/libkeyutils.so:recovery/root/sbin/libkeyutils.so \
+    $(LOCAL_PATH)/recovery/libsec_ecryptfs.so:recovery/root/sbin/libsec_ecryptfs.so \
+    $(LOCAL_PATH)/recovery/libsec_km.so:recovery/root/sbin/libsec_km.so
+
